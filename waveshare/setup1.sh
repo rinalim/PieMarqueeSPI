@@ -1,0 +1,1 @@
+cp /boot/config.txt ./config.txt
