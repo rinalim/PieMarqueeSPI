@@ -24,9 +24,9 @@ else:
     file_list.sort()
     for f in file_list:
         if ".png" in f:
-            run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f)
-            print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f
+            run_cmd("convert " + source_path + f + " -resize 480x320 ./" + dest_path + f)
+            print "convert " + source_path + f + " -resize 480x320 ./" + dest_path + f
         elif ".jpg" in f:
-            run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png"))
-            print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png")
+            run_cmd("convert " + source_path + f + " -resize 480x320 ./" + dest_path + f.replace("jpg","png"))
+            print "convert " + source_path + f + " -resize 480x320 ./" + dest_path + f.replace("jpg","png")
 
