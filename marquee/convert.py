@@ -9,6 +9,7 @@ def run_cmd(cmd):
   
 source_path = sys.argv[1]
 dest_path = sys.argv[2]
+resize = sys.argv[3]
 
 if source_path.endswith("/") == False:
     source_path = source_path+"/"
@@ -23,10 +24,10 @@ else:
     file_list = os.listdir(source_path)
     file_list.sort()
     for f in file_list:
-        if ".png" in f:
-            run_cmd("convert " + source_path + f + " -resize 480x320 ./" + dest_path + f)
-            print "convert " + source_path + f + " -resize 480x320 ./" + dest_path + f
-        elif ".jpg" in f:
-            run_cmd("convert " + source_path + f + " -resize 480x320 ./" + dest_path + f.replace("jpg","png"))
-            print "convert " + source_path + f + " -resize 480x320 ./" + dest_path + f.replace("jpg","png")
+        if ".jpg" in f:
+            run_cmd("convert " + source_path + f + " -resize " + resize + "./" + dest_path + f)
+            print "convert " + source_path + f + " -resize 480x320 " + resize + "./" + dest_path + f
+        elif ".png" in f:
+            run_cmd("convert " + source_path + f + " -resize " + resize + "./" + dest_path + f.replace("png","jpg"))
+            print "convert " + source_path + f + " -resize " + resize + "./" + dest_path + f.replace("png","jpg")
 
