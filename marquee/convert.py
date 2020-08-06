@@ -23,10 +23,10 @@ else:
     file_list = os.listdir(source_path)
     file_list.sort()
     for f in file_list:
-        if ".jpg" in f:
+        if ".png" in f:
             run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f)
             print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f
-        else if ".png" in f:
-            run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("png","jpg"))
-            print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("png","jpg")
+        else if ".jpg" in f:
+            run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png"))
+            print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png")
 
