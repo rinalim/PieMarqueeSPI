@@ -18,8 +18,8 @@ if dest_path.endswith("/") == False:
 if os.path.isdir(source_path) == False:
     print "source path is not valid"
 else:
-    if os.path.isdir(os.getcwd()+"/"dest_path) == False:
-        os.mkdir(os.getcwd()+"/"dest_path)
+    if os.path.isdir(os.getcwd()+"/"+dest_path) == False:
+        os.mkdir(os.getcwd()+"/"+dest_path)
     file_list = os.listdir(source_path)
     file_list.sort()
     for f in file_list:
