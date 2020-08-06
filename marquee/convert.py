@@ -10,9 +10,9 @@ def run_cmd(cmd):
 source_path = sys.argv[1]
 dest_path = sys.argv[2]
 
-if source_path.endswith"/" == False:
+if source_path.endswith("/") == False:
     source_path = source_path+"/"
-if dest_path.endswith"/" == False:
+if dest_path.endswith("/") == False:
     dest_path = dest_path+"/"
 
 if os.path.isdir(source_path) == False:
