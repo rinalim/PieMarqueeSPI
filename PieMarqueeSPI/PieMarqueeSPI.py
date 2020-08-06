@@ -80,7 +80,7 @@ while True:
                 continue
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = path.replace('"','').split("/")[-1].split(".")[0]
+                romname = "arcade/"+path.replace('"','').split("/")[-1].split(".")[0]
             else:
                 romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
 
@@ -93,7 +93,7 @@ while True:
             path = line.replace('Game: ','')
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = path.replace('"','').split("/")[-1].split(".")[0]
+                romname = "arcade/"+path.replace('"','').split("/")[-1].split(".")[0]
             else:
                 romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
             sleep_interval = 0.1 # for quick view

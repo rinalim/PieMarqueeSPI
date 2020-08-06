@@ -13,3 +13,5 @@ cp ./config.txt /boot/config.txt
 
 sudo sed -i '/con2fbmap/d' /opt/retropie/configs/all/autostart.sh
 sudo sed -i '1icon2fbmap 1 0' /opt/retropie/configs/all/autostart.sh
+
+sudo reboot
