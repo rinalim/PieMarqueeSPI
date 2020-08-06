@@ -26,7 +26,7 @@ else:
         if ".png" in f:
             run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f)
             print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f
-        else if ".jpg" in f:
+        elif ".jpg" in f:
             run_cmd("convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png"))
             print "convert " + source_path + f + " -resize 800x480 ./" + dest_path + f.replace("jpg","png")
 
