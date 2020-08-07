@@ -3,6 +3,8 @@ sudo apt-get install imagemagick -y
 sudo apt-get install fbi -y
 sudo apt-get install mplayer -y
 
+sudo cp /usr/bin/fbi /usr/bin/fbi-marquee
+
 rm -rf /opt/retropie/configs/all/PieMarqueeSPI/
 mkdir /opt/retropie/configs/all/PieMarqueeSPI/
 cp -f -r ./PieMarqueeSPI /opt/retropie/configs/all/
