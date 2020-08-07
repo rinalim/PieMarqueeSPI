@@ -1,6 +1,7 @@
 # PieMarqueeSPI
 Marquee plugin for SPI screen
-## Install
+## Screen Setup
+```
 cd ~
 git clone https://github.com/rinalim/PieMarqueeSPI
 cd PieMarqueeSPI/waveshare
@@ -11,6 +12,9 @@ sudo chmod 755 LCD*
 --After rebooting--
 cd /home/pi/PieMarqueeSPI/waveshare
 sudo sh lcd-restore.sh
---After rebooting--
+```
+## Install
+```
 cd /home/pi/PieMarqueeSPI
 sudo sh ./install.sh
+```
