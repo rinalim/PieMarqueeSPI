@@ -8,7 +8,7 @@ cd PieMarqueeSPI/waveshare
 cp /boot/config.txt ./config.org
 cd LCD-show
 sudo chmod 755 LCD*
-./LCD35-show
+./LCD35(B)-show
 --After rebooting--
 cd /home/pi/PieMarqueeSPI/waveshare
 sudo sh lcd-restore.sh
