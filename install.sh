@@ -1,3 +1,4 @@
+sudo apt-get update
 sudo apt-get install libjpeg8 -y
 sudo apt-get install imagemagick -y
 sudo apt-get install fbi -y
