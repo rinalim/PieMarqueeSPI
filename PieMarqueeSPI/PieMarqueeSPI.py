@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os
+import os, keyboard
 from subprocess import *
 from time import *
 import xml.etree.ElementTree as ET
@@ -15,6 +15,24 @@ def run_cmd(cmd):
     p = Popen(cmd, shell=True, stdout=PIPE)
     output = p.communicate()[0]
     return output
+
+def update_image(src, dst):
+    if os.path.isfile(src) == True:
+        prev_size = os.path.getsize(dst)
+        os.system('cp "' + src + '" ' + dst)
+        counts = 0
+        while True:
+            if os.path.getsize(dst) > and os.path.getsize(dst) != prev_size:
+                keyboard.press("n")
+                time.sleep(0.01)
+                keyboard.release("n")
+                break
+            else:
+                counts = counts+1
+                if counts >= 5:
+                    break
+                else:
+                    time.sleep(0.1) 
 
 def kill_proc(name):
     ps_grep = run_cmd("ps -aux | grep " + name + "| grep -v 'grep'")
@@ -53,7 +71,7 @@ if os.path.isfile("/tmp/pause_1.png") == False :
 if os.path.isfile("/tmp/pause_2.png") == False :
     os.system("ln -s /tmp/pause.png /tmp/pause_2.png")
 
-os.system("cp /home/pi/PieMarqueeSPI/marquee/maintitle.png /tmp/pause.png")
+os.system("cp /home/pi/PieMarqueeSPI/marquee/system/maintitle.png /tmp/pause.png")
 os.system(VIEWER)
     
 cur_imgname = ""
@@ -69,7 +87,7 @@ while True:
         ingame="*"
         words = ps_grep.split()
         if 'advmame' in ps_grep:
-            sysname = "mame-advmame"
+            sysname = "arcade"
             romname = words[-1]
         else:
             pid = words[1]
@@ -80,11 +98,10 @@ while True:
                 continue
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = "arcade/"+path.replace('"','').split("/")[-1].split(".")[0]
-            else:
-                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
-
-    elif os.path.isfile("/tmp/PieMarquee.log") == True:
+                sysname = "arcade"
+            romname = path.replace('"','').split("/")[-1].split(".")[0]
+           
+    elif os.path.isfile("/tmp/PieMarquee.log") == True: # Modified ES
         f = open('/tmp/PieMarquee.log', 'r')
         line = f.readline()
         f.close()
@@ -93,11 +110,11 @@ while True:
             path = line.replace('Game: ','')
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = "arcade/"+path.replace('"','').split("/")[-1].split(".")[0]
-            else:
-                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
+                sysname = "arcade"
+            romname = path.replace('"','').split("/")[-1].split(".")[0]
             sleep_interval = 0.1 # for quick view
         elif len(words) == 1:
+            sysname = "system"
             if words[0] == "SystemView":
                 romname = "maintitle"
             else:
@@ -106,34 +123,28 @@ while True:
     else:
         romname = "maintitle"
    
-    if os.path.isfile("/home/pi/PieMarqueeSPI/marquee/" + romname + ".png") == True:
-        imgname = romname
+    if os.path.isfile("/home/pi/PieMarqueeSPI/marquee/" + sysname + "/" + romname + ".png") == True:
+        imgname = sysname + "/" + romname
         if ingame == "*":
             publisher = get_publisher(romname)
             if os.path.isfile("/home/pi/PieMarqueeSPI/marquee/publisher/" + publisher + ".png") == True:
                 pubpath = "/home/pi/PieMarqueeSPI/marquee/publisher/" + publisher + ".png"
             if os.path.isfile("/home/pi/PieMarqueeSPI/marquee/instruction/" + romname + ".png") == True:
                 instpath = "/home/pi/PieMarqueeSPI/marquee/instruction/" + romname + ".png"
-    elif os.path.isfile("/home/pi/PieMarqueeSPI/marquee/" + sysname + ".png") == True:
-        imgname = sysname
+    elif os.path.isfile("/home/pi/PieMarqueeSPI/marquee/system/" + sysname + ".png") == True:
+        imgname = "system/" + sysname
     else:
-        imgname = "maintitle"
+        imgname = "system/maintitle"
         
     if imgname+ingame != cur_imgname: # change marquee images
-        kill_proc("mplayer")
-        if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarqueeSPI/marquee/maintitle.mp4") == True:
-            os.system("mplayer -vo fbdev2:/dev/fb1 -zoom -xy 480 -demuxer lavf -framedrop /home/pi/PieMarqueeSPI/marquee/maintitle.mp4 </dev/null >/dev/null 2>&1 &")            
-        else:
-            imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
-            os.system('cp' + imgpath + '" /tmp/pause.png')
-            sleep(0.2) 
-            '''
-            if is_running("omxiv-marquee") == False: # if omxiv failed, execute again
-                os.system("clear > /dev/tty1")
-                os.system('echo "' + imgpath + '" > /tmp/marquee.txt')
-                os.system(VIEWER)
-            cur_imgname = imgname+ingame
-            '''
-            continue
-
+        imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
+        update_image(imgpath, "/tmp/pause.png")
+        '''
+        if is_running("omxiv-marquee") == False: # if omxiv failed, execute again
+            os.system("clear > /dev/tty1")
+            os.system('echo "' + imgpath + '" > /tmp/marquee.txt')
+            os.system(VIEWER)
+        '''
+        cur_imgname = imgname+ingame
+        
     sleep(sleep_interval)
