@@ -72,7 +72,9 @@ if os.path.isfile("/tmp/pause_1.png") == False :
 if os.path.isfile("/tmp/pause_2.png") == False :
     os.system("ln -s /tmp/pause.png /tmp/pause_2.png")
 
-os.system("cp /home/pi/PieMarqueeSPI/marquee/system/maintitle.png /tmp/pause.png")
+update_image("/home/pi/PieMarqueeSPI/marquee/system/maintitle.png", "/tmp/pause.png")
+while is_running("EmulationStation") == False:
+    sleep(1)
 os.system(VIEWER)
     
 cur_imgname = "system/maintitle"
@@ -142,12 +144,12 @@ while True:
     if imgname+ingame != cur_imgname: # change marquee images
         imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
         update_image(imgpath, "/tmp/pause.png")
-        
+        '''
         if is_running("fbi") == False: # if fbi failed, execute again
             os.system("clear > /dev/tty1")
             update_image(imgpath, "/tmp/pause.png")
             os.system(VIEWER)
-        
+        '''
         cur_imgname = imgname+ingame
         
     sleep(sleep_interval)
