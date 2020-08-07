@@ -142,7 +142,7 @@ while True:
         
     if imgname+ingame != cur_imgname: # change marquee images
         if ingame == "*":
-            os.system("sudo killall fbi-marquee")
+            os.system("sudo pkill -9 fbi-marquee")
             os.system("clear > /dev/tty1")
             imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
             update_image(imgpath, "/tmp/pause.png")
@@ -152,7 +152,7 @@ while True:
             imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
             update_image(imgpath, "/tmp/pause.png")
             if cur_imgname.endswith("*") == True:
-                os.system("sudo killall fbi-marquee")
+                os.system("sudo pkill -9 fbi-marquee")
                 os.system("clear > /dev/tty1")
             cur_imgname = imgname+ingame
 
