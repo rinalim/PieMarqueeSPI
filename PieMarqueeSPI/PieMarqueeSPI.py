@@ -22,7 +22,7 @@ def update_image(src, dst):
         os.system('cp "' + src + '" ' + dst)
         counts = 0
         while True:
-            if os.path.getsize(dst) > and os.path.getsize(dst) != prev_size:
+            if os.path.getsize(dst) > 0 and os.path.getsize(dst) != prev_size:
                 keyboard.press("n")
                 time.sleep(0.01)
                 keyboard.release("n")
