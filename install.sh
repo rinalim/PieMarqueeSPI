@@ -2,6 +2,8 @@ sudo apt-get install libjpeg8 -y
 sudo apt-get install imagemagick -y
 sudo apt-get install fbi -y
 sudo apt-get install mplayer -y
+sudo pip install wheel
+sudo pip install keyboard
 
 sudo cp /usr/bin/fbi /usr/bin/fbi-marquee
 
