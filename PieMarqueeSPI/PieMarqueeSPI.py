@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
 VIEWER = "sudo fbi-marquee -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1"
-INGAME_VIEWER = "sudo fbi-marquee -T 2 -a -blend 500 -t 3 -d /dev/fb1 -noverbose /tmp/pause.png "
+INGAME_VIEWER = "sudo fbi-marquee -T 2 -a -blend 500 -t 5 -d /dev/fb1 -noverbose /tmp/pause.png "
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 
@@ -143,6 +143,7 @@ while True:
     if imgname+ingame != cur_imgname: # change marquee images
         if ingame == "*":
             os.system("sudo killall fbi-marquee")
+            os.system("clear > /dev/tty1")
             imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
             update_image(imgpath, "/tmp/pause.png")
             cur_imgname = imgname+ingame
@@ -152,6 +153,7 @@ while True:
             update_image(imgpath, "/tmp/pause.png")
             if cur_imgname.endswith("*") == True:
                 os.system("sudo killall fbi-marquee")
+                os.system("clear > /dev/tty1")
             cur_imgname = imgname+ingame
 
     if is_running("fbi-marquee") == False: # if fbi-marquee failed, execute again
