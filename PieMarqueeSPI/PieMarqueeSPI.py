@@ -6,7 +6,7 @@ from time import *
 import xml.etree.ElementTree as ET
 
 INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
-VIEWER = "sudo fbi -T 2 -d /dev/fb0 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1 &"
+VIEWER = "sudo fbi -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1 &"
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 
