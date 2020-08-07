@@ -6,7 +6,8 @@ from time import *
 import xml.etree.ElementTree as ET
 
 INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
-VIEWER = "sudo fbi -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1 &"
+VIEWER = "sudo fbi -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1"
+INGAME_VIEWER = "sudo fbi -T 2 -a -belnd 200 -t 3 -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png "
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 
@@ -73,7 +74,7 @@ if os.path.isfile("/tmp/pause_2.png") == False :
     os.system("ln -s /tmp/pause.png /tmp/pause_2.png")
 
 update_image("/home/pi/PieMarqueeSPI/marquee/system/maintitle.png", "/tmp/pause.png")
-os.system(VIEWER)
+os.system(VIEWER + " &")
     
 cur_imgname = "system/maintitle"
 while True:
@@ -140,11 +141,16 @@ while True:
         imgname = "system/maintitle"
         
     if imgname+ingame != cur_imgname: # change marquee images
-        imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
-        update_image(imgpath, "/tmp/pause.png")
-        cur_imgname = imgname+ingame
+        if ingame == "*":
+            os.system("sudo killall fbi")
+            os.system(INGAME_VIEWER + pubpath + " " + instpath + " > /dev/null 2>&1 &")
+
+        else:
+            imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
+            update_image(imgpath, "/tmp/pause.png")
+            cur_imgname = imgname+ingame
 
     if is_running("fbi") == False: # if fbi failed, execute again
-        os.system(VIEWER)
+        os.system(VIEWER + " &")
         
     sleep(sleep_interval)
