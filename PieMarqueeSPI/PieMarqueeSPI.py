@@ -17,6 +17,7 @@ def run_cmd(cmd):
     return output
 
 def update_image(src, dst):
+    os.system('echo "' + src + '" >> /tmp/pi.log')
     if os.path.isfile(src) == True:
         prev_size = os.path.getsize(dst)
         os.system('cp "' + src + '" ' + dst)
@@ -82,6 +83,7 @@ while True:
     sysname = ""
     pubpath = ""
     instpath = ""
+    imgpath = ""
     ps_grep = run_cmd("ps -aux | grep emulators | grep -v 'grep'")
     if len(ps_grep) > 1:
         ingame="*"
@@ -140,12 +142,12 @@ while True:
     if imgname+ingame != cur_imgname: # change marquee images
         imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
         update_image(imgpath, "/tmp/pause.png")
-        '''
-        if is_running("omxiv-marquee") == False: # if omxiv failed, execute again
+        
+        if is_running("fbi") == False: # if fbi failed, execute again
             os.system("clear > /dev/tty1")
-            os.system('echo "' + imgpath + '" > /tmp/marquee.txt')
+            update_image(imgpath, "/tmp/pause.png")
             os.system(VIEWER)
-        '''
+        
         cur_imgname = imgname+ingame
         
     sleep(sleep_interval)
