@@ -74,7 +74,7 @@ if os.path.isfile("/tmp/pause_2.png") == False :
 os.system("cp /home/pi/PieMarqueeSPI/marquee/system/maintitle.png /tmp/pause.png")
 os.system(VIEWER)
     
-cur_imgname = ""
+cur_imgname = "system/maintitle"
 while True:
     sleep_interval = 1
     ingame = ""
