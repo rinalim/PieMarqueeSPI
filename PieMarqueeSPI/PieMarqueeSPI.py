@@ -142,16 +142,11 @@ while True:
         imgname = "system/maintitle"
         
     if imgname+ingame != cur_imgname: # change marquee images
-        os.system('now "' + imgname+ingame + '" >> /tmp/pi.log')
-        os.system('before "' + cur_imgname + '" >> /tmp/pi.log')
         imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
         update_image(imgpath, "/tmp/pause.png")
-        '''
-        if is_running("fbi") == False: # if fbi failed, execute again
-            os.system("clear > /dev/tty1")
-            update_image(imgpath, "/tmp/pause.png")
-            os.system(VIEWER)
-        '''
         cur_imgname = imgname+ingame
+
+    if is_running("fbi") == False: # if fbi failed, execute again
+        os.system(VIEWER)
         
     sleep(sleep_interval)
