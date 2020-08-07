@@ -5,9 +5,9 @@ from subprocess import *
 from time import *
 import xml.etree.ElementTree as ET
 
-INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
-VIEWER = "sudo fbi-marquee -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png > /dev/null 2>&1"
-INGAME_VIEWER = "sudo fbi-marquee -T 2 -a -blend 500 -t 5 -d /dev/fb1 -noverbose /tmp/pause.png "
+#INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
+VIEWER = "sudo fbi-marquee -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png"
+INGAME_VIEWER = "sudo fbi-marquee -T 2 -a -blend 500 -t 5 -d /dev/fb1 -noverbose /tmp/pause.png"
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 
@@ -34,7 +34,13 @@ def update_image(src, dst):
                 if counts >= 5:
                     break
                 else:
-                    sleep(0.1) 
+                    sleep(0.1)
+                    
+def kill_fbi():
+    #os.system("sudo pkill -9 fbi-marquee")
+    keyboard.press("q")
+    sleep(0.1)
+    keyboard.release("q")
 
 def kill_proc(name):
     ps_grep = run_cmd("ps -aux | grep " + name + "| grep -v 'grep'")
@@ -60,8 +66,8 @@ def get_publisher(romname):
     words = publisher.split()
     return words[0].lower()
     
-if os.path.isfile(INTRO) == True:
-    run_cmd("mplayer -vo fbdev2:/dev/fb1 -zoom -xy 480 -demuxer lavf -framedrop " + INTRO + " </dev/null >/dev/null 2>&1")
+#if os.path.isfile(INTRO) == True:
+#    run_cmd("mplayer -vo fbdev2:/dev/fb1 -zoom -xy 480 -demuxer lavf -framedrop " + INTRO + " </dev/null >/dev/null 2>&1")
 
 doc = ET.parse("/opt/retropie/configs/all/PieMarqueeSPI/gamelist_short.xml")
 root = doc.getroot()
@@ -142,21 +148,22 @@ while True:
         
     if imgname+ingame != cur_imgname: # change marquee images
         if ingame == "*":
-            os.system("sudo pkill -9 fbi-marquee")
-            os.system("clear > /dev/tty1")
+            kill_fbi()
             imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
             update_image(imgpath, "/tmp/pause.png")
             cur_imgname = imgname+ingame
-            os.system(INGAME_VIEWER + pubpath + " " + instpath + " > /dev/null 2>&1 &")
+            os.system(INGAME_VIEWER + " " + pubpath + " " + instpath + " &")
         else:
             imgpath = "/home/pi/PieMarqueeSPI/marquee/" + imgname + ".png"
             update_image(imgpath, "/tmp/pause.png")
             if cur_imgname.endswith("*") == True:
-                os.system("sudo pkill -9 fbi-marquee")
-                os.system("clear > /dev/tty1")
+                kill_fbi()
             cur_imgname = imgname+ingame
 
-    if is_running("fbi-marquee") == False: # if fbi-marquee failed, execute again
+    if is_running("/home/pi/RetroPie-Setup/retropie_packages.sh") == True:
+        if is_running("fbi-marquee") == True:
+            kill_fbi()
+    elif is_running("fbi-marquee") == False: # if fbi-marquee failed, execute again
         os.system(VIEWER + " &")
-        
+
     sleep(sleep_interval)
