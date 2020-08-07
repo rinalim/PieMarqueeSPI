@@ -121,6 +121,7 @@ while True:
                 romname = words[0]
 
     else:
+        sysname = "system"
         romname = "maintitle"
    
     if os.path.isfile("/home/pi/PieMarqueeSPI/marquee/" + sysname + "/" + romname + ".png") == True:
