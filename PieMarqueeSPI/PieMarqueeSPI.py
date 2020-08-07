@@ -73,8 +73,6 @@ if os.path.isfile("/tmp/pause_2.png") == False :
     os.system("ln -s /tmp/pause.png /tmp/pause_2.png")
 
 update_image("/home/pi/PieMarqueeSPI/marquee/system/maintitle.png", "/tmp/pause.png")
-while is_running("emulationstation") == False:
-    sleep(1)
 os.system(VIEWER)
     
 cur_imgname = "system/maintitle"
