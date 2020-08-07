@@ -24,7 +24,7 @@ def update_image(src, dst):
         while True:
             if os.path.getsize(dst) > 0 and os.path.getsize(dst) != prev_size:
                 keyboard.press("n")
-                time.sleep(0.01)
+                sleep(0.01)
                 keyboard.release("n")
                 break
             else:
@@ -32,7 +32,7 @@ def update_image(src, dst):
                 if counts >= 5:
                     break
                 else:
-                    time.sleep(0.1) 
+                    sleep(0.1) 
 
 def kill_proc(name):
     ps_grep = run_cmd("ps -aux | grep " + name + "| grep -v 'grep'")
