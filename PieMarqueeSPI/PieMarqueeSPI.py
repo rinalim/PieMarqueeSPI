@@ -5,7 +5,7 @@ from subprocess import *
 from time import *
 import xml.etree.ElementTree as ET
 
-#INTRO = "/home/pi/PieMarqueeSPI/intro.mp4"
+#INTRO = "/home/pi/PieMarqueeSPI/intro.mp4" # movio intro is disabled
 VIEWER = "sudo fbi-marquee -T 2 -a -d /dev/fb1 -noverbose -cachemem 0 /tmp/pause.png /tmp/pause_1.png /tmp/pause_2.png"
 INGAME_VIEWER = "sudo fbi-marquee -T 2 -a -blend 500 -t 5 -d /dev/fb1 -noverbose /tmp/pause.png"
 
