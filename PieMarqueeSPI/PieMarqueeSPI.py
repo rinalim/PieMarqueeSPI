@@ -162,7 +162,7 @@ while True:
                 kill_fbi()
             cur_imgname = imgname+ingame
 
-    if is_running("/home/pi/RetroPie-Setup/retropie_packages.sh") == True:
+    if is_running("/home/pi/RetroPie-Setup/retropie_packages.sh") == True or is_running("dialog") == True:
         if is_running("fbi-marquee") == True:
             kill_fbi()
     elif is_running("fbi-marquee") == False: # if fbi-marquee failed, execute again
