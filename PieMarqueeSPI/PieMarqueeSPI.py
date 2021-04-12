@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import os, keyboard
 from subprocess import *
@@ -15,7 +15,7 @@ def run_cmd(cmd):
 # runs whatever in the cmd variable
     p = Popen(cmd, shell=True, stdout=PIPE)
     output = p.communicate()[0]
-    return output
+    return output.decode()
 
 def update_image(src, dst):
     os.system('echo "' + src + '" >> /tmp/pi.log')
